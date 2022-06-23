@@ -8,7 +8,12 @@
 import UIKit
 
 class CityListCell: UITableViewCell {
-
+    
+    @IBOutlet weak var cityName: UILabel!
+    @IBOutlet weak var weatherIcon: UIImageView!
+    @IBOutlet weak var temp: UILabel!
+    @IBOutlet weak var humidity: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

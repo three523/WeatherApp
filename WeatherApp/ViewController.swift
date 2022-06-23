@@ -10,11 +10,40 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var cityListTableView: UITableView!
+        
     override func viewDidLoad() {
+        
+        let nibName = UINib(nibName: "CityListCell", bundle: nil)
+
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        cityListTableView.delegate = self
+        cityListTableView.dataSource = self
+        cityListTableView.register(nibName, forCellReuseIdentifier: "WeatherCell")
+        
     }
 
 
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath) as? CityListCell else {
+            return UITableViewCell()
+        }
+        
+        cell.weatherIcon.image = UIImage(systemName: "sun.max")
+        
+        return cell
+    }
+    
+    
 }
 
