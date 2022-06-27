@@ -7,7 +7,7 @@
 
 import Foundation
 
-let cityCoordinate : [String:[String]] = [
+let CityLocations : [String:[String]] = [
     "서울":["37.56667","126.97806"],
     "부산":["35.17944","129.07556"],
     "공주":["36.44667","127.11972"],

@@ -18,8 +18,26 @@ class DetailWeatherViewController: UIViewController {
     @IBOutlet weak var hourlyWatherCollectionView: UICollectionView!
     @IBOutlet weak var currentHumidity: UILabel!
     @IBOutlet weak var feelsLikeTempLabel: UILabel!
+    @IBOutlet weak var pressureLabel: UILabel!
     @IBOutlet weak var windSpeedLabel: UILabel!
     @IBOutlet weak var dayilyWeatherTableView: UITableView!
+    
+    let model: CityListModel = CityListModel()
+    let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
+    var cityName: String = ""
+    
+    override func loadView() {
+        super.loadView()
+        
+        model.weatherDetailCollectionViewReload = hourlyWatherCollectionView.reloadData
+        model.weatherDetailTableViewReload = dayilyWeatherTableView.reloadData
+        
+        model.weatherDetail(cityName: cityName) {
+            DispatchQueue.main.async {
+                self.viewSetting()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,21 +53,65 @@ class DetailWeatherViewController: UIViewController {
         
         dayilyWeatherTableView.delegate = self
         dayilyWeatherTableView.dataSource = self
-
+        
     }
+    
+    func viewSetting() {
+        guard let weatherDeatil = model.getWeatherDetail() else {
+            print("get Weather nil")
+            return }
+        let currentWeather = weatherDeatil.weather.current
+        guard let todayWeather = weatherDeatil.weather.daily?.first else {
+            print("daily weather nil")
+            return }
+        
+        cityNameLabel.text = weatherDeatil.cityName
+        tempLabel.text = "\(Int(round(currentWeather.temp)))º"
+        
+        let currentWeatherIconName = currentWeather.weather[0].icon
+        weatherIconLoader.getIconImage(iconName: currentWeatherIconName) { weatherIcon in
+            DispatchQueue.main.async {
+                self.currentWeatherIcon.image = weatherIcon
+            }
+        }
 
+        maxTempLabel.text = "\(Int(round(todayWeather.temp.max)))º"
+        minTempLabel.text = "\(Int(round(todayWeather.temp.min)))º"
+        feelsLikeTempLabel.text = "\(Int(round(currentWeather.feelsLike)))º"
+        currentHumidity.text = "\(currentWeather.humidity)%"
+        pressureLabel.text = "\(currentWeather.pressure)hPa"
+        windSpeedLabel.text = "\(Int(round(currentWeather.windSpeed)))m/s"
+        
+    }
+    
 }
 
 extension DetailWeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return model.getHourWeatherCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath) as? TodayHourlyWeatherCell else {
             return UICollectionViewCell()
         }
+        
+        if let hourWeather = model.getHourWeather(index: indexPath.row) {
+            let hourString = Date(timeIntervalSince1970: TimeInterval((hourWeather.dt))).hourToString
+            
+            let hourWeatherIconName = hourWeather.weather[0].icon
+            
+            weatherIconLoader.getIconImage(iconName: hourWeatherIconName) { weatherIcon in
+                DispatchQueue.main.async {
+                    cell.hourWeatherIcon.image = weatherIcon
+                }
+            }
+            
+            cell.timeLabel.text = hourString
+            cell.hourTempLabel.text = "\(Int(round(hourWeather.temp)))º"
+        }
+        
         return cell
     }
     
@@ -64,12 +126,26 @@ extension DetailWeatherViewController: UICollectionViewDelegate, UICollectionVie
 extension DetailWeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return model.getDayWeatherCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DailyCell", for: indexPath) as? DailyWeatherCell else {
             return UITableViewCell()
+        }
+        if let dailyWeather = model.getDayWeather(index: indexPath.row) {
+            
+            let dailyWeatherIconName = dailyWeather.weather[0].icon
+            weatherIconLoader.getIconImage(iconName: dailyWeatherIconName) { weatherIcon in
+                DispatchQueue.main.async {
+                    cell.dailyWeatherIcon.image = weatherIcon
+                }
+            }
+            
+            let dailyString = Date(timeIntervalSince1970: TimeInterval(dailyWeather.dt)).dayToString
+            cell.dayLabel.text = dailyString
+            cell.dailyMinTemp.text = "\(Int(round(dailyWeather.temp.min)))º"
+            cell.dailyMaxTemp.text = "\(Int(round(dailyWeather.temp.max)))º"
         }
         
         return cell

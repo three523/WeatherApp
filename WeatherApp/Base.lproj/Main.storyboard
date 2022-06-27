@@ -43,6 +43,7 @@
                     </view>
                     <connections>
                         <outlet property="cityListTableView" destination="pNX-Zh-yVc" id="cu9-ba-AWw"/>
+                        <segue destination="nYH-j2-mK3" kind="showDetail" identifier="DetailWeatherSegue" id="ygx-HF-ZWo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -54,7 +55,7 @@
             <objects>
                 <viewController id="nYH-j2-mK3" customClass="DetailWeatherViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DHQ-uu-H91">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서울" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xur-3h-CKB">
@@ -205,7 +206,7 @@
                                 </cells>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="peI-ZV-a5f">
-                                <rect key="frame" x="30" y="502" width="315" height="276"/>
+                                <rect key="frame" x="30" y="502" width="315" height="256"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DailyCell" id="Oyq-cr-c0U" customClass="DailyWeatherCell" customModule="WeatherApp" customModuleProvider="target">
@@ -286,6 +287,7 @@
                         <outlet property="hourlyWatherCollectionView" destination="vRP-gd-jAv" id="a8x-L8-oIN"/>
                         <outlet property="maxTempLabel" destination="Hyr-ce-IrE" id="qed-u8-Bg9"/>
                         <outlet property="minTempLabel" destination="Cns-LY-DTk" id="wHf-DD-ubg"/>
+                        <outlet property="pressureLabel" destination="xIZ-jf-QCD" id="r5S-MY-uvF"/>
                         <outlet property="tempLabel" destination="F9f-Cu-Thb" id="eyQ-nD-aiY"/>
                         <outlet property="windSpeedLabel" destination="bfH-4G-zjz" id="Jw8-UY-oOn"/>
                     </connections>
