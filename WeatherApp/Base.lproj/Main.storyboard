@@ -43,7 +43,7 @@
                     </view>
                     <connections>
                         <outlet property="cityListTableView" destination="pNX-Zh-yVc" id="cu9-ba-AWw"/>
-                        <segue destination="nYH-j2-mK3" kind="presentation" identifier="DetailWeatherSegue" id="ygx-HF-ZWo"/>
+                        <segue destination="nYH-j2-mK3" kind="presentation" identifier="DetailWeatherSegue" modalPresentationStyle="fullScreen" id="ygx-HF-ZWo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -55,7 +55,7 @@
             <objects>
                 <viewController id="nYH-j2-mK3" customClass="DetailWeatherViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DHQ-uu-H91">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서울" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xur-3h-CKB">
@@ -206,7 +206,7 @@
                                 </cells>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="peI-ZV-a5f">
-                                <rect key="frame" x="30" y="502" width="315" height="256"/>
+                                <rect key="frame" x="30" y="502" width="315" height="276"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DailyCell" id="Oyq-cr-c0U" customClass="DailyWeatherCell" customModule="WeatherApp" customModuleProvider="target">
@@ -248,6 +248,21 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPG-57-YHr">
+                                <rect key="frame" x="30" y="62" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="UPn-s5-XgW"/>
+                                    <constraint firstAttribute="width" constant="40" id="XQ2-8i-2id"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="←">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="backButtonClick:" destination="nYH-j2-mK3" eventType="touchUpInside" id="3il-vk-88G"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="L3o-QN-ozM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -274,10 +289,14 @@
                             <constraint firstItem="Yqs-b6-8Xl" firstAttribute="top" secondItem="F9f-Cu-Thb" secondAttribute="bottom" constant="20" id="kZv-5c-h3a"/>
                             <constraint firstItem="xur-3h-CKB" firstAttribute="top" secondItem="L3o-QN-ozM" secondAttribute="top" constant="20" id="nJ3-o0-Ae1"/>
                             <constraint firstItem="vRP-gd-jAv" firstAttribute="top" secondItem="0xd-ue-fZk" secondAttribute="bottom" constant="20" id="nef-hI-bFh"/>
+                            <constraint firstItem="bPG-57-YHr" firstAttribute="centerY" secondItem="xur-3h-CKB" secondAttribute="centerY" id="nnX-HG-pPE"/>
                             <constraint firstItem="peI-ZV-a5f" firstAttribute="leading" secondItem="L3o-QN-ozM" secondAttribute="leading" constant="30" id="ouq-ir-oGe"/>
+                            <constraint firstItem="bPG-57-YHr" firstAttribute="leading" secondItem="L3o-QN-ozM" secondAttribute="leading" constant="30" id="rcd-0V-eAo"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="IUb-QX-Xpc"/>
                     <connections>
+                        <outlet property="backButton" destination="bPG-57-YHr" id="HOC-Yd-GhU"/>
                         <outlet property="cityNameLabel" destination="xur-3h-CKB" id="F4S-8n-9z7"/>
                         <outlet property="currentHumidity" destination="5Rv-XM-tlT" id="gnn-Ct-vSt"/>
                         <outlet property="currentWeatherIcon" destination="irY-pB-xht" id="mn2-In-3dA"/>

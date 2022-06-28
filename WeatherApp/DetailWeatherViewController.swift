@@ -8,8 +8,7 @@
 import UIKit
 
 class DetailWeatherViewController: UIViewController {
-
-
+    
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var maxTempLabel: UILabel!
@@ -21,10 +20,12 @@ class DetailWeatherViewController: UIViewController {
     @IBOutlet weak var pressureLabel: UILabel!
     @IBOutlet weak var windSpeedLabel: UILabel!
     @IBOutlet weak var dayilyWeatherTableView: UITableView!
+    @IBOutlet weak var backButton: UIButton!
     
     let model: CityListModel = CityListModel()
     let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
     var cityName: String = ""
+    weak var tableReloadDelegate: TableReloadProtocol?
     
     override func loadView() {
         super.loadView()
@@ -41,7 +42,6 @@ class DetailWeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let collectionNibName = UINib(nibName: "TodayHourlyWeatherCell", bundle: nil)
         hourlyWatherCollectionView.register(collectionNibName, forCellWithReuseIdentifier: "HourlyCell")
         
@@ -82,6 +82,11 @@ class DetailWeatherViewController: UIViewController {
         pressureLabel.text = "\(currentWeather.pressure)hPa"
         windSpeedLabel.text = "\(Int(round(currentWeather.windSpeed)))m/s"
         
+    }
+    
+    @IBAction func backButtonClick(_ sender: Any) {
+        tableReloadDelegate?.tableReload()
+        dismiss(animated: true, completion: nil)
     }
     
 }

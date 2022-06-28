@@ -57,6 +57,11 @@ class CityListModel {
         return cityWeatherList.count
     }
     
+    func cityListIndexUpdate(index: Int) {
+        let cityWeather = cityWeatherList.remove(at: index)
+        cityWeatherList.insert(cityWeather, at: 0)
+    }
+    
     func weatherDetail(cityName: String, completed: @escaping () -> ()) {
         guard let location = CityLocations[cityName] else {
             print("city name does not exist")
