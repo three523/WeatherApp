@@ -97,8 +97,8 @@ class CityListModel {
     }
     
     func getDayWeatherCount() -> Int {
-        guard let count = cityWeatherDetail?.weather.daily else { return 0 }
-        return 15
+        guard let count = cityWeatherDetail?.weather.daily?.count else { return 0 }
+        return count
     }
     
     func getDayWeather(index: Int) -> DailyWeather? {
