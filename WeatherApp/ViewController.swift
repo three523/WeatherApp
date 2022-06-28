@@ -60,24 +60,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.temp.text = "\(Int(round(currentWeather.temp)))º"
         cell.humidity.text = "\(currentWeather.humidity)%"
         
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath) as? CityListCell else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? CityListCell else { return }
         guard let cityName = cell.cityName.text else { return }
-        print("sender: \(cityName)")
         performSegue(withIdentifier: "DetailWeatherSegue", sender: cityName)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let weatherDetailVC = segue.destination as? DetailWeatherViewController else { return }
         guard let cityName = sender as? String else { return }
-        
-//        print("VC:\(weatherDetailVC)")
-//        print("sender: \(cityName)")
-        
         weatherDetailVC.cityName = cityName
     }
     
