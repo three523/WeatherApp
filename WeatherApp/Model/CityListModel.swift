@@ -20,7 +20,7 @@ class CityListModel {
     private var cityWeatherDetail: CityWeather?
     var weatherDetailTableViewReload: () -> Void = {}
     var weatherDetailCollectionViewReload: () -> Void = {}
-
+    
     let network = Network()
     
     func weatherList() {
