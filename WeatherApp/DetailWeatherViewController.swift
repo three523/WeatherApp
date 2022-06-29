@@ -21,10 +21,12 @@ class DetailWeatherViewController: UIViewController {
     @IBOutlet weak var windSpeedLabel: UILabel!
     @IBOutlet weak var dayilyWeatherTableView: UITableView!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     
     let model: CityListModel = CityListModel()
     let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
     var cityName: String = ""
+    var backgroundImage: UIImage?
     weak var tableReloadDelegate: TableReloadProtocol?
     
     override func loadView() {
@@ -64,8 +66,12 @@ class DetailWeatherViewController: UIViewController {
         guard let todayWeather = weatherDeatil.weather.daily?.first else {
             print("daily weather nil")
             return }
-        
+        guard let backgroundImage = backgroundImage else {
+            return
+        }
+
         cityNameLabel.text = weatherDeatil.cityName
+        backgroundImageView.image = backgroundImage
         tempLabel.text = "\(Int(round(currentWeather.temp)))º"
         
         let currentWeatherIconName = currentWeather.weather[0].icon

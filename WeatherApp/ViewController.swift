@@ -14,6 +14,7 @@ protocol TableReloadProtocol: class {
 class ViewController: UIViewController, TableReloadProtocol {
 
     @IBOutlet weak var cityListTableView: UITableView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     let imageView = UIImageView()
     
     let network: Network = Network()
@@ -27,30 +28,26 @@ class ViewController: UIViewController, TableReloadProtocol {
         
         model.weatherList()
         model.cityListTableViewReload = cityListTableView.reloadData
-        
+
         cityListTableView.delegate = self
         cityListTableView.dataSource = self
         cityListTableView.register(nibName, forCellReuseIdentifier: "WeatherCell")
-        
+        cityListTableView.backgroundColor = .clear
+                
     }
     
     func tableReload() {
         DispatchQueue.main.async {
             self.cityListTableView.reloadData()
-            let firstCityWeatherId = self.model.getCityWeather(index: 0).weather.current.weather[0].id
-            self.setBackgroundWeatherImage(id: firstCityWeatherId/100,id2: firstCityWeatherId%100)
         }
     }
-    //TODO: 배경 흐리게, 테이블뷰 투명한 색으로, 처음 테이블뷰 생성시 배경색 변경이 될수 있게
+    //TODO: 첫화면에 이미지를 넣을지 말지 고민해보기
     func setBackgroundWeatherImage(id: Int, id2: Int) {
-        if id == 2 { view.backgroundColor = UIColor(patternImage: UIImage(named: "ThunderStom")!) }
-        else if id == 5 { view.backgroundColor = UIColor(patternImage: UIImage(named: "Rain")!) }
-        else if id == 6 { view.backgroundColor = UIColor(patternImage: UIImage(named: "Snow")!) }
-        else if id == 8 && id2 == 0 { view.backgroundColor = UIColor(patternImage: UIImage(named: "Clear")!) }
-        else {
-            view.backgroundColor = UIColor(patternImage: UIImage(named: "Clouds")!)
-        }
-
+        if id == 2 { self.backgroundImageView.image = UIImage(named: "ThunderStom")! }
+        else if id == 5 { self.backgroundImageView.image = UIImage(named: "Rain")! }
+        else if id == 6 { self.backgroundImageView.image = UIImage(named: "Snow")! }
+        else if id == 8 && id2 == 0 { self.backgroundImageView.image = UIImage(named: "Clear")! }
+        else if id == 8 { self.backgroundImageView.image = UIImage(named: "Clouds")! }
 
     }
 
@@ -71,6 +68,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cityWeather = model.getCityWeather(index: indexPath.row)
         let currentWeather = cityWeather.weather.current
         
+        cell.weatherIcon.image = nil
+        
         let iconName = currentWeather.weather[0].icon
         weatherIconLoader.getIconImage(iconName: iconName) { icon in
             DispatchQueue.main.async {
@@ -85,6 +84,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = .clear
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? CityListCell else { return }
         guard let cityName = cell.cityName.text else { return }
@@ -96,6 +99,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         guard let weatherDetailVC = segue.destination as? DetailWeatherViewController else { return }
         guard let cityName = sender as? String else { return }
         weatherDetailVC.cityName = cityName
+        weatherDetailVC.backgroundImage = backgroundImageView.image
         weatherDetailVC.tableReloadDelegate = self
     }
         
