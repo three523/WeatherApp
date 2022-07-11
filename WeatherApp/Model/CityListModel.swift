@@ -12,7 +12,6 @@ import UIKit
 
 class CityListModel {
     
-    private var cityWeatherList: [CityWeather] = [CityWeather]()
     private var summaryCityWeatherList: [SummaryCityWeather] = [SummaryCityWeather]()
     var cityListTableViewReload: () -> Void = {}
     
@@ -21,9 +20,7 @@ class CityListModel {
     var weatherDetailCollectionViewReload: () -> Void = {}
     
     let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
-    
     let network = Network()
-    let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
     
     //TODO: 요약된 도시별 날씨 메서드 생성하기
     func setSummaryWeatherList() {
@@ -91,10 +88,6 @@ class CityListModel {
                 
         network.getCityWeather(lat: lat, lon: lon, exclude: "minutely,alerts") { weatherDetail in
             self.cityWeatherDetail = CityWeather(cityName: cityName, weather: weatherDetail)
-//            DispatchQueue.main.async {
-//                self.weatherDetailTableViewReload()
-//                self.weatherDetailCollectionViewReload()
-//            }
         }
     }
     

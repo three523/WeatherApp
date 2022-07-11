@@ -7,14 +7,10 @@
 
 import UIKit
 
-protocol TableReloadProtocol: class {
-    func tableReload()
-}
-
-class ViewController: UIViewController, TableReloadProtocol {
+class ViewController: UIViewController {
 
     @IBOutlet weak var cityListTableView: UITableView!
-let model: CityListModel = CityListModel()
+    let model: CityListModel = CityListModel()
         
     override func viewDidLoad() {
         super.viewDidLoad()
