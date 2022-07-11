@@ -124,6 +124,11 @@ class CityListModel {
     }
     
     func getIconImage(iconName: String) -> UIImage {
+        var iconName = iconName
+        if iconName.last == "n" {
+            iconName.removeLast()
+            iconName = iconName + "d"
+        }
         guard let image = UIImage(named: iconName) else {return UIImage(systemName: "xmark")!}
         return  image
     }

@@ -106,7 +106,7 @@ extension DetailWeatherViewController: UICollectionViewDelegate, UICollectionVie
             let hourString = Date(timeIntervalSince1970: TimeInterval((hourWeather.dt))).hourToString
             
             let hourWeatherIconName = hourWeather.weather[0].icon
-            
+                        
             let hourWeatherIconImage = model.getIconImage(iconName: hourWeatherIconName)
             
             cell.hourWeatherIcon.image = hourWeatherIconImage
