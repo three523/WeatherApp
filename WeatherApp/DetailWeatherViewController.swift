@@ -70,11 +70,9 @@ class DetailWeatherViewController: UIViewController {
         tempLabel.text = "\(Int(round(currentWeather.temp)))º"
         
         let currentWeatherIconName = currentWeather.weather[0].icon
-        model.weatherIconLoader.getIconImage(iconName: currentWeatherIconName) { weatherIcon in
-            DispatchQueue.main.async {
-                self.currentWeatherIcon.image = weatherIcon
-            }
-        }
+        let currentWeatherIconImage = model.getIconImage(iconName: currentWeatherIconName)
+        
+        currentWeatherIcon.image = currentWeatherIconImage
 
         maxTempLabel.text = "\(Int(round(todayWeather.temp.max)))º"
         minTempLabel.text = "\(Int(round(todayWeather.temp.min)))º"
@@ -109,11 +107,9 @@ extension DetailWeatherViewController: UICollectionViewDelegate, UICollectionVie
             
             let hourWeatherIconName = hourWeather.weather[0].icon
             
-            model.weatherIconLoader.getIconImage(iconName: hourWeatherIconName) { weatherIcon in
-                DispatchQueue.main.async {
-                    cell.hourWeatherIcon.image = weatherIcon
-                }
-            }
+            let hourWeatherIconImage = model.getIconImage(iconName: hourWeatherIconName)
+            
+            cell.hourWeatherIcon.image = hourWeatherIconImage
             
             cell.timeLabel.text = hourString
             cell.hourTempLabel.text = "\(Int(round(hourWeather.temp)))º"
@@ -145,12 +141,9 @@ extension DetailWeatherViewController: UITableViewDelegate, UITableViewDataSourc
            let dailyWeather = model.getDayWeather(index: indexPath.row) {
             
             let dailyWeatherIconName = dailyWeather.weather[0].icon
-            model.weatherIconLoader.getIconImage(iconName: dailyWeatherIconName) { weatherIcon in
-                DispatchQueue.main.async {
-                    cell.dailyWeatherIcon.image = weatherIcon
-                }
-            }
+            let dailyWeatherIconImage = model.getIconImage(iconName: dailyWeatherIconName)
             
+            cell.dailyWeatherIcon.image = dailyWeatherIconImage
             let dailyString = Date(timeIntervalSince1970: TimeInterval(dailyWeather.dt)).dayToString
             cell.dayLabel.text = dailyString
             cell.dailyMinTemp.text = "\(Int(round(dailyWeather.temp.min)))º"

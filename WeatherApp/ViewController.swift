@@ -48,12 +48,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         let iconName = summaryWeather.weather[0].icon
         
-        model.weatherIconLoader.getIconImage(iconName: iconName) { icon in
-            DispatchQueue.main.async {
-                cell.weatherIcon.image = icon
-            }
-        }
+        let iconImage = model.getIconImage(iconName: iconName)
         
+        cell.weatherIcon.image = iconImage
         cell.cityName.text = summaryCityWeather.cityName
         cell.temp.text = "\(Int(round(summaryWeather.temp)))º"
         cell.humidity.text = "\(summaryWeather.humidity)%"
