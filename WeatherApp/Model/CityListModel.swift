@@ -8,37 +8,41 @@
 import Foundation
 import UIKit
 
-struct CityWeather {
-    var cityName: String
-    var weather: Weather
-}
+
 
 class CityListModel {
     
     private var cityWeatherList: [CityWeather] = [CityWeather]()
+    private var summaryCityWeatherList: [SummaryCityWeather] = [SummaryCityWeather]()
     var cityListTableViewReload: () -> Void = {}
     
     private var cityWeatherDetail: CityWeather?
     var weatherDetailTableViewReload: () -> Void = {}
     var weatherDetailCollectionViewReload: () -> Void = {}
     
+    let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
+    
     let network = Network()
     let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
     
-    func weatherList() {
+    //TODO: 요약된 도시별 날씨 메서드 생성하기
+    func setSummaryWeatherList() {
         
         var count = 0
+        
+        let start = CFAbsoluteTimeGetCurrent()
         
         for (key, value) in CityLocations {
             let lat = value[0]
             let lon = value[1]
             
-            network.getCityWeather(lat: lat, lon: lon, exclude: "minutely,alerts,hourly,daily") { weatherModel in
-                self.cityWeatherList.append(CityWeather(cityName: key, weather: weatherModel))
+            network.getSummaryCityWeather(lat: lat, lon: lon, exclude: "minutely,alerts,hourly,daily") { summaryCurrentWeather in
+                self.summaryCityWeatherList.append(SummaryCityWeather(cityName: key, weather: summaryCurrentWeather))
                 
                 count += 1
 
                 if count == CityLocations.count {
+                    print(CFAbsoluteTimeGetCurrent() - start)
                     DispatchQueue.main.async {
                         self.cityListTableViewReload()
                     }
@@ -47,24 +51,19 @@ class CityListModel {
         }
     }
     
-    func getCityListWeather() -> [CityWeather] {
-        return cityWeatherList
+    func getSummaryCityListWeather() -> [SummaryCityWeather] {
+        return summaryCityWeatherList
     }
     
-    func getCityWeather(index: Int) -> CityWeather {
-        return cityWeatherList[index]
+    func getSummaryCityWeather(index: Int) -> SummaryCityWeather {
+        return summaryCityWeatherList[index]
     }
     
-    func getCityListCount() -> Int {
-        return cityWeatherList.count
+    func getSummaryCityListCount() -> Int {
+        return summaryCityWeatherList.count
     }
     
-    func cityListIndexUpdate(index: Int) {
-        let cityWeather = cityWeatherList.remove(at: index)
-        cityWeatherList.insert(cityWeather, at: 0)
-    }
-    
-    func weatherDetail(cityName: String, completed: @escaping () -> ()) {
+    func setWeatherDetail(cityName: String, completed: @escaping () -> ()) {
         guard let location = CityLocations[cityName] else {
             print("city name does not exist")
             return
@@ -108,7 +107,7 @@ class CityListModel {
     }
     
     func getHourWeatherCount() -> Int {
-        guard let count = cityWeatherDetail?.weather.hourly?.count else { return 0 }
+        if cityWeatherDetail == nil { return 0 }
         return 24
     }
     
@@ -121,7 +120,7 @@ class CityListModel {
     }
     
     func getDayWeatherCount() -> Int {
-        guard let count = cityWeatherDetail?.weather.daily?.count else { return 0 }
+        guard let count = cityWeatherDetail?.weather.daily.count else { return 0 }
         return count
     }
     
@@ -132,4 +131,5 @@ class CityListModel {
         }
         return dailyWeather[index]
     }
+    
 }
