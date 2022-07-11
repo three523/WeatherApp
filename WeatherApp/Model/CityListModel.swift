@@ -31,7 +31,7 @@ class CityListModel {
             let lat = value[0]
             let lon = value[1]
             
-            network.getSummaryCityWeather(lat: lat, lon: lon, exclude: "minutely,alerts,hourly,daily") { summaryCurrentWeather in
+            network.getWeatherData(lat: lat, lon: lon, exclude: "minutely,alerts,hourly,daily", type: SummaryCurrentWeather.self) { summaryCurrentWeather in
                 self.summaryCityWeatherList.append(SummaryCityWeather(cityName: key, weather: summaryCurrentWeather))
                 
                 count += 1
@@ -66,26 +66,13 @@ class CityListModel {
         let lat = location[0]
         let lon = location[1]
                 
-        network.getCityWeather(lat: lat, lon: lon, exclude: "minutely,alerts") { weatherDetail in
-            self.cityWeatherDetail = CityWeather(cityName: cityName, weather: weatherDetail)
+        network.getWeatherData(lat: lat, lon: lon, exclude: "minutely,alerts", type: Weather.self) { weather in
+            self.cityWeatherDetail = CityWeather(cityName: cityName, weather: weather)
             DispatchQueue.main.async {
                 self.weatherDetailTableViewReload()
                 self.weatherDetailCollectionViewReload()
             }
             completed()
-        }
-    }
-    
-    func setWeatherDetail(cityName: String) {
-        guard let location = CityLocations[cityName] else {
-            print("city name does not exist")
-            return
-        }
-        let lat = location[0]
-        let lon = location[1]
-                
-        network.getCityWeather(lat: lat, lon: lon, exclude: "minutely,alerts") { weatherDetail in
-            self.cityWeatherDetail = CityWeather(cityName: cityName, weather: weatherDetail)
         }
     }
     
