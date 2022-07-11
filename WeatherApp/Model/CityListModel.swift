@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 
@@ -22,6 +23,7 @@ class CityListModel {
     let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
     
     let network = Network()
+    let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
     
     //TODO: 요약된 도시별 날씨 메서드 생성하기
     func setSummaryWeatherList() {
@@ -76,6 +78,23 @@ class CityListModel {
                 self.weatherDetailCollectionViewReload()
             }
             completed()
+        }
+    }
+    
+    func setWeatherDetail(cityName: String) {
+        guard let location = CityLocations[cityName] else {
+            print("city name does not exist")
+            return
+        }
+        let lat = location[0]
+        let lon = location[1]
+                
+        network.getCityWeather(lat: lat, lon: lon, exclude: "minutely,alerts") { weatherDetail in
+            self.cityWeatherDetail = CityWeather(cityName: cityName, weather: weatherDetail)
+//            DispatchQueue.main.async {
+//                self.weatherDetailTableViewReload()
+//                self.weatherDetailCollectionViewReload()
+//            }
         }
     }
     

@@ -14,9 +14,7 @@ protocol TableReloadProtocol: class {
 class ViewController: UIViewController, TableReloadProtocol {
 
     @IBOutlet weak var cityListTableView: UITableView!
-    
-    let network: Network = Network()
-    let model: CityListModel = CityListModel()
+let model: CityListModel = CityListModel()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +29,6 @@ class ViewController: UIViewController, TableReloadProtocol {
         cityListTableView.register(nibName, forCellReuseIdentifier: "WeatherCell")
         cityListTableView.backgroundColor = .clear
                 
-    }
-    
-    func tableReload() {
-        DispatchQueue.main.async {
-            self.cityListTableView.reloadData()
-        }
     }
 
 }
@@ -59,6 +51,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.weatherIcon.image = nil
         
         let iconName = summaryWeather.weather[0].icon
+        
         model.weatherIconLoader.getIconImage(iconName: iconName) { icon in
             DispatchQueue.main.async {
                 cell.weatherIcon.image = icon
@@ -83,7 +76,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cityName = sender as? String else { return }
         weatherDetailVC.cityName = cityName
         weatherDetailVC.model = model
-        weatherDetailVC.tableReloadDelegate = self
     }
         
 }

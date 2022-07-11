@@ -198,7 +198,7 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HourlyCell" id="DZr-7L-V1D" customClass="TodayHourlyWeatherCell" customModule="WeatherApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-4" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGv-fE-lgg" customClass="TodayHourWeather" customModule="WeatherApp" customModuleProvider="target">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="AGv-fE-lgg" customClass="TodayHourWeather" customModule="WeatherApp" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </collectionViewCellContentView>
@@ -280,7 +280,6 @@
                             <constraint firstItem="irY-pB-xht" firstAttribute="top" secondItem="xur-3h-CKB" secondAttribute="bottom" constant="40" id="QLc-n5-abh"/>
                             <constraint firstItem="d4B-PC-0m8" firstAttribute="centerY" secondItem="F9f-Cu-Thb" secondAttribute="centerY" id="QSI-oO-1le"/>
                             <constraint firstItem="irY-pB-xht" firstAttribute="centerY" secondItem="F9f-Cu-Thb" secondAttribute="centerY" id="Qqx-JT-cyX"/>
-                            <constraint firstItem="d4B-PC-0m8" firstAttribute="leading" secondItem="F9f-Cu-Thb" secondAttribute="trailing" id="RDC-20-KZE"/>
                             <constraint firstItem="SrV-9c-xza" firstAttribute="leading" secondItem="Yqs-b6-8Xl" secondAttribute="leading" id="Rbd-Wg-srM"/>
                             <constraint firstItem="Yqs-b6-8Xl" firstAttribute="centerX" secondItem="L3o-QN-ozM" secondAttribute="centerX" multiplier="0.5" id="V9s-iv-JqY"/>
                             <constraint firstItem="L3o-QN-ozM" firstAttribute="trailing" secondItem="vRP-gd-jAv" secondAttribute="trailing" constant="10" id="Z2t-H4-i7c"/>
@@ -293,6 +292,7 @@
                             <constraint firstItem="bPG-57-YHr" firstAttribute="centerY" secondItem="xur-3h-CKB" secondAttribute="centerY" id="nnX-HG-pPE"/>
                             <constraint firstItem="peI-ZV-a5f" firstAttribute="leading" secondItem="L3o-QN-ozM" secondAttribute="leading" constant="30" id="ouq-ir-oGe"/>
                             <constraint firstItem="bPG-57-YHr" firstAttribute="leading" secondItem="L3o-QN-ozM" secondAttribute="leading" constant="30" id="rcd-0V-eAo"/>
+                            <constraint firstItem="d4B-PC-0m8" firstAttribute="leading" secondItem="F9f-Cu-Thb" secondAttribute="trailing" id="yje-eu-Y1i"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IUb-QX-Xpc"/>
@@ -313,7 +313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2g-zt-ncP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="946.37681159420299" y="83.705357142857139"/>
+            <point key="canvasLocation" x="878" y="-68"/>
         </scene>
     </scenes>
     <resources>

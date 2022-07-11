@@ -24,7 +24,6 @@ class DetailWeatherViewController: UIViewController {
     
     var cityName: String = ""
     weak var model: CityListModel? = nil
-    weak var tableReloadDelegate: TableReloadProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,11 +58,13 @@ class DetailWeatherViewController: UIViewController {
         guard let model = model,
               let weatherDeatil = model.getWeatherDetail() else {
             print("get Weather nil")
-            return }
+            return
+        }
         let currentWeather = weatherDeatil.weather.current
         guard let todayWeather = weatherDeatil.weather.daily.first else {
             print("daily weather nil")
-            return }
+            return
+        }
 
         cityNameLabel.text = weatherDeatil.cityName
         tempLabel.text = "\(Int(round(currentWeather.temp)))º"
@@ -85,7 +86,6 @@ class DetailWeatherViewController: UIViewController {
     }
     
     @IBAction func backButtonClick(_ sender: Any) {
-        tableReloadDelegate?.tableReload()
         dismiss(animated: true, completion: nil)
     }
     
@@ -159,5 +159,4 @@ extension DetailWeatherViewController: UITableViewDelegate, UITableViewDataSourc
         
         return cell
     }
-    
 }
