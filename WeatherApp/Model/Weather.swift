@@ -1,14 +1,18 @@
 
 import Foundation
 
-struct Weather: Codable {
-    let timezone: String
-    let current: Current
-    let hourly: [HourlyWeather]?
-    let daily: [DailyWeather]?
+struct CityWeather {
+    var cityName: String
+    var weather: Weather
 }
 
-struct Current: Codable {
+struct Weather: Codable {
+    let current: CurrentWeather
+    let hourly: [HourlyWeather]
+    let daily: [DailyWeather]
+}
+
+struct CurrentWeather: Codable {
     let temp: Double
     let feelsLike: Double
     let pressure: Int
@@ -23,6 +27,21 @@ struct Current: Codable {
         case windSpeed = "wind_speed"
         case temp, pressure, humidity, rain, snow, weather
     }
+}
+
+struct SummaryCityWeather {
+    let cityName: String
+    let weather: SummaryCurrentWeather
+}
+
+struct SummaryCurrentWeather: Codable {
+    let current: SummaryWeather
+}
+
+struct SummaryWeather: Codable {
+    let temp: Double
+    let humidity: Int
+    let weather: [MainWeather]
 }
 
 struct MainWeather: Codable {

@@ -16,7 +16,7 @@ extension Date {
     }
     var dayToString: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "m.d"
+        dateFormatter.dateFormat = "M.d"
         return dateFormatter.string(from: self)
     }
 }

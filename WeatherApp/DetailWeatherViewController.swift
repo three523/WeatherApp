@@ -21,26 +21,10 @@ class DetailWeatherViewController: UIViewController {
     @IBOutlet weak var windSpeedLabel: UILabel!
     @IBOutlet weak var dayilyWeatherTableView: UITableView!
     @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var backgroundImageView: UIImageView!
     
-    let model: CityListModel = CityListModel()
-    let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
     var cityName: String = ""
-    var backgroundImage: UIImage?
+    weak var model: CityListModel? = nil
     weak var tableReloadDelegate: TableReloadProtocol?
-    
-    override func loadView() {
-        super.loadView()
-        
-        model.weatherDetailCollectionViewReload = hourlyWatherCollectionView.reloadData
-        model.weatherDetailTableViewReload = dayilyWeatherTableView.reloadData
-        
-        model.weatherDetail(cityName: cityName) {
-            DispatchQueue.main.async {
-                self.viewSetting()
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,26 +40,36 @@ class DetailWeatherViewController: UIViewController {
         dayilyWeatherTableView.delegate = self
         dayilyWeatherTableView.dataSource = self
         
+        guard let model = model else {
+            return
+        }
+                
+        model.weatherDetailCollectionViewReload = hourlyWatherCollectionView.reloadData
+        model.weatherDetailTableViewReload = dayilyWeatherTableView.reloadData
+        
+        model.setWeatherDetail(cityName: cityName, completed: {
+            DispatchQueue.main.async {
+                self.viewSetting()
+            }
+        })
+        
     }
     
     func viewSetting() {
-        guard let weatherDeatil = model.getWeatherDetail() else {
+        guard let model = model,
+              let weatherDeatil = model.getWeatherDetail() else {
             print("get Weather nil")
             return }
         let currentWeather = weatherDeatil.weather.current
-        guard let todayWeather = weatherDeatil.weather.daily?.first else {
+        guard let todayWeather = weatherDeatil.weather.daily.first else {
             print("daily weather nil")
             return }
-        guard let backgroundImage = backgroundImage else {
-            return
-        }
 
         cityNameLabel.text = weatherDeatil.cityName
-        backgroundImageView.image = backgroundImage
         tempLabel.text = "\(Int(round(currentWeather.temp)))º"
         
         let currentWeatherIconName = currentWeather.weather[0].icon
-        weatherIconLoader.getIconImage(iconName: currentWeatherIconName) { weatherIcon in
+        model.weatherIconLoader.getIconImage(iconName: currentWeatherIconName) { weatherIcon in
             DispatchQueue.main.async {
                 self.currentWeatherIcon.image = weatherIcon
             }
@@ -100,6 +94,7 @@ class DetailWeatherViewController: UIViewController {
 extension DetailWeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let model = model else { return 0 }
         return model.getHourWeatherCount()
     }
     
@@ -108,12 +103,13 @@ extension DetailWeatherViewController: UICollectionViewDelegate, UICollectionVie
             return UICollectionViewCell()
         }
         
-        if let hourWeather = model.getHourWeather(index: indexPath.row) {
+        if let model = model,
+           let hourWeather = model.getHourWeather(index: indexPath.row) {
             let hourString = Date(timeIntervalSince1970: TimeInterval((hourWeather.dt))).hourToString
             
             let hourWeatherIconName = hourWeather.weather[0].icon
             
-            weatherIconLoader.getIconImage(iconName: hourWeatherIconName) { weatherIcon in
+            model.weatherIconLoader.getIconImage(iconName: hourWeatherIconName) { weatherIcon in
                 DispatchQueue.main.async {
                     cell.hourWeatherIcon.image = weatherIcon
                 }
@@ -137,6 +133,7 @@ extension DetailWeatherViewController: UICollectionViewDelegate, UICollectionVie
 extension DetailWeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let model = model else {return 0}
         return model.getDayWeatherCount()
     }
     
@@ -144,10 +141,11 @@ extension DetailWeatherViewController: UITableViewDelegate, UITableViewDataSourc
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DailyCell", for: indexPath) as? DailyWeatherCell else {
             return UITableViewCell()
         }
-        if let dailyWeather = model.getDayWeather(index: indexPath.row) {
+        if let model = model,
+           let dailyWeather = model.getDayWeather(index: indexPath.row) {
             
             let dailyWeatherIconName = dailyWeather.weather[0].icon
-            weatherIconLoader.getIconImage(iconName: dailyWeatherIconName) { weatherIcon in
+            model.weatherIconLoader.getIconImage(iconName: dailyWeatherIconName) { weatherIcon in
                 DispatchQueue.main.async {
                     cell.dailyWeatherIcon.image = weatherIcon
                 }
@@ -161,6 +159,5 @@ extension DetailWeatherViewController: UITableViewDelegate, UITableViewDataSourc
         
         return cell
     }
-    
     
 }
