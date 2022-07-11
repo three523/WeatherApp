@@ -19,10 +19,8 @@ class CityListModel {
     var weatherDetailTableViewReload: () -> Void = {}
     var weatherDetailCollectionViewReload: () -> Void = {}
     
-    let weatherIconLoader: WeatherIconLoader = WeatherIconLoader()
     let network = Network()
     
-    //TODO: 요약된 도시별 날씨 메서드 생성하기
     func setSummaryWeatherList() {
         
         var count = 0
@@ -123,6 +121,11 @@ class CityListModel {
             return nil
         }
         return dailyWeather[index]
+    }
+    
+    func getIconImage(iconName: String) -> UIImage {
+        guard let image = UIImage(named: iconName) else {return UIImage(systemName: "xmark")!}
+        return  image
     }
     
 }
