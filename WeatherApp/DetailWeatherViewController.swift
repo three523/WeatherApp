@@ -29,12 +29,14 @@ class DetailWeatherViewController: UIViewController {
         super.viewDidLoad()
         let collectionNibName = UINib(nibName: "TodayHourlyWeatherCell", bundle: nil)
         hourlyWatherCollectionView.register(collectionNibName, forCellWithReuseIdentifier: "HourlyCell")
+        hourlyWatherCollectionView.showsHorizontalScrollIndicator = false
         
         hourlyWatherCollectionView.delegate = self
         hourlyWatherCollectionView.dataSource = self
         
         let tableNibName = UINib(nibName: "DailyWeatherCell", bundle: nil)
         dayilyWeatherTableView.register(tableNibName, forCellReuseIdentifier: "DailyCell")
+        dayilyWeatherTableView.showsVerticalScrollIndicator = false
         
         dayilyWeatherTableView.delegate = self
         dayilyWeatherTableView.dataSource = self

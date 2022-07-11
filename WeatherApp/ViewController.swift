@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         cityListTableView.delegate = self
         cityListTableView.dataSource = self
         cityListTableView.register(nibName, forCellReuseIdentifier: "WeatherCell")
+        cityListTableView.showsVerticalScrollIndicator = false
         cityListTableView.backgroundColor = .clear
                 
     }
