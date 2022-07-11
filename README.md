@@ -2,7 +2,8 @@
 
 ## 날씨 앱
 https://openweathermap.org/api/one-call-3 사이트의 api를 이용하여 날씨 앱 제작해보기    
-ios 온보딩 사전과제를 보고 제작해보았다.
+[ios 온보딩 사전과제](https://yagomacademy.notion.site/4eb46f9eb3a442efb9d0856b72f15b74)를 보고 제작해보았다.    
+너무 늦게봐서 제출을 하진 못했다...
 
 ### 첫 화면 (도시별 간략한 날씨 정보)
 <p align="center"><img width="357" alt="image" src="https://user-images.githubusercontent.com/71269216/178251588-db3a5410-3c9d-4631-bcc1-4e79b7d3c12c.png"></p>
