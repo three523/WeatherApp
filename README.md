@@ -17,7 +17,7 @@ https://openweathermap.org/api/one-call-3 사이트의 api를 이용하여 날�
 
 
 ### 실행 화면
-<p align="center">![Simulator Screen Recording - iPhone 12 - 2022-07-11 at 18 21 47](https://user-images.githubusercontent.com/71269216/178232270-b44c3663-0336-4436-b11f-d9513d901a2a.gif)</p>
+![Simulator Screen Recording - iPhone 12 - 2022-07-11 at 18 21 47](https://user-images.githubusercontent.com/71269216/178253112-78d2a142-8f40-46c6-bc41-5bbc99c66a7c.gif)
 
 
 ## 전체적인 구조
