@@ -31,7 +31,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26º" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQ2-8F-fKO">
-                        <rect key="frame" x="195" y="11.5" width="35" height="21"/>
+                        <rect key="frame" x="185" y="11.5" width="35" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="35" id="uwr-fU-Flw"/>
                         </constraints>
@@ -39,24 +39,24 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REM-10-yOk">
-                        <rect key="frame" x="270" y="11.5" width="40" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REM-10-yOk">
+                        <rect key="frame" x="260" y="11.5" width="50" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="hKd-or-wfZ"/>
+                            <constraint firstAttribute="width" constant="50" id="hKd-or-wfZ"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="humidity" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PZl-ev-VNu">
-                        <rect key="frame" x="235" y="9" width="30" height="27"/>
+                        <rect key="frame" x="225" y="9" width="30" height="27"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="iZw-dc-YSj"/>
                             <constraint firstAttribute="height" constant="30" id="vFh-vF-3Z0"/>
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thermometer" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6kV-k9-hNs">
-                        <rect key="frame" x="160" y="7.5" width="30" height="30.5"/>
+                        <rect key="frame" x="150" y="7.5" width="30" height="30.5"/>
                         <color key="tintColor" systemColor="systemRedColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="6f4-th-pbj"/>
