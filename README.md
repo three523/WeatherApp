@@ -5,18 +5,18 @@ https://openweathermap.org/api/one-call-3 사이트의 api를 이용하여 날�
 ios 온보딩 사전과제를 보고 제작해보았다.
 
 ### 첫 화면 (도시별 간략한 날씨 정보)
-<img width="357" alt="image" src="https://user-images.githubusercontent.com/71269216/178251588-db3a5410-3c9d-4631-bcc1-4e79b7d3c12c.png">
+<p align="center"><img width="357" alt="image" src="https://user-images.githubusercontent.com/71269216/178251588-db3a5410-3c9d-4631-bcc1-4e79b7d3c12c.png"></p>
 
 - 도시별 날씨를 필요한 정보만 가져와 화면에 출력
 - 테이블 셀 클릭시 자세한 도시의 날씨 화면으로 넘어감
 
 ### 두번째 화면 (자세한 날씨에 대한 정보 출력)
-<img width="362" alt="image" src="https://user-images.githubusercontent.com/71269216/178251709-e4083b46-7f6c-4d22-bd47-78bb298a3041.png">
+<p align="center"><img width="362" alt="image" src="https://user-images.githubusercontent.com/71269216/178251709-e4083b46-7f6c-4d22-bd47-78bb298a3041.png"></p>
 - api를 다시 호출하여 특정 도시의 현재 날씨, 시간대별 날씨, 일별 날씨를 가져옮
 
 
 ### 실행 화면
-![Simulator Screen Recording - iPhone 12 - 2022-07-11 at 18 21 47](https://user-images.githubusercontent.com/71269216/178232270-b44c3663-0336-4436-b11f-d9513d901a2a.gif)
+<p align="center">![Simulator Screen Recording - iPhone 12 - 2022-07-11 at 18 21 47](https://user-images.githubusercontent.com/71269216/178232270-b44c3663-0336-4436-b11f-d9513d901a2a.gif)</p>
 
 
 ## 전체적인 구조
